@@ -1139,3 +1139,8 @@ button { font:inherit; }
 .project-group-title { grid-column:1 / -1; margin:10px 0 0; padding:0 0 10px; border-bottom:1px solid var(--border); font:600 15px/1.5 var(--font-sans); color:var(--text); }
 .project-group-title:first-child { margin-top:0; }
 @media(max-width:760px) { #projects-grid.projects--grouped { grid-template-rows:var(--project-group-rows-mobile); } }
+
+/* Simulated social-link source grows with its text instead of inheriting button height. */
+.contact-info .socials > li { min-width:0; max-width:100%; }
+.contact-info .socials > li:has(.is-code-unit) { flex-basis:100%; }
+.contact-info .socials a.is-code-unit { height:auto; min-height:0; max-width:100%; overflow-wrap:anywhere; white-space:pre-wrap; }
