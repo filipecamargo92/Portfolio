@@ -74,12 +74,12 @@ const TRANSLATIONS = {
     },
     hero: {
       technologies: "Core technologies",
-      greeting: "Hi, I'm",
+      greeting: "Hello, I'm",
       role: "Software Engineer",
       tagline: "I develop software solutions for games, from systems and interfaces to tools and data persistence, with a focus on architecture, usability and performance.",
       available: "Open to remote roles",
       ctaProjects: "View projects",
-      ctaCv: "Download résumé",
+      ctaCv: "Download resume",
     },
     about: {
       title: "About me",
@@ -97,8 +97,8 @@ const TRANSLATIONS = {
     },
     experience: {
       title: "Experience",
-      more: "Full history, education and training are in my résumé.",
-      cv: "Download résumé (PDF)",
+      more: "Full history, education and training are in my resume.",
+      cv: "Download resume (PDF)",
     },
     contact: {
       title: "Contact",
@@ -106,7 +106,7 @@ const TRANSLATIONS = {
       headline: "Let's work together",
       text: "Have a project in mind or an opportunity on your team? Send me an email and let's explore what we could build together.",
       cta: "Send an email",
-      cv: "Download résumé (PDF)",
+      cv: "Download resume (PDF)",
     },
     footer: { text: "Handmade with HTML, CSS and JavaScript." },
   },
