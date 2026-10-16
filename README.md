@@ -92,6 +92,6 @@ A integracao normaliza as semanas e intensidades retornadas pela API e confere a
 
 ## Cards de projetos
 
-Cada card aparece por uma simulacao de clique direito e selecao de Add Project, respeitando o historico de animacoes por visita/idioma. Exibe nome, cargo, tipo, estudio/equipe, estado, tecnologias e links, com destaque no Kundara. Campos sem informacao usam PROVISORIO.
+Cada card aparece por uma simulacao de clique direito e selecao de Add Project, respeitando o historico de animacoes por visita/idioma. Exibe nome, cargo, tipo, estudio/equipe, estado, tecnologias e links, com destaque no Kundara.
 
 As thumbnails usam a referencia de 460 x 215 px do Kundara, a menor imagem original. As demais sao enquadradas com object-fit: cover, mantendo os arquivos originais. A largura diminui proporcionalmente em telas pequenas.
