@@ -5,3 +5,5 @@
 - Shattered: https://granai.itch.io/shattered (itch.io cover thumbnail, 315 x 250).
 
 Downloaded 2026-10-16 to match the owner-provided reference artwork.
+
+- Coliseum Burger: https://coliseumburger.itch.io/coliseum (original itch.io cover, matching the owner-provided artwork).

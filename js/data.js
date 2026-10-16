@@ -12,7 +12,7 @@ const PORTFOLIO = {
 
   stats: [
     { value: "3+", label: { "pt-BR": "Anos de experiência", en: "Years of experience" } },
-    { value: "6", label: { "pt-BR": "Jogos no portfólio", en: "Games in the portfolio" } },
+    { value: "7", label: { "pt-BR": "Jogos no portfólio", en: "Games in the portfolio" } },
     { value: "3", label: { "pt-BR": "Plataformas (PC, Android e WebGL)", en: "Platforms (PC, Android and WebGL)" } },
   ],
 
@@ -98,6 +98,7 @@ const PORTFOLIO = {
   projectCategories: [
     { id: "all", label: { "pt-BR": "Todos", en: "All" } },
     { id: "commercial", label: { "pt-BR": "Comercial", en: "Commercial" } },
+    { id: "advergame", label: { "pt-BR": "Advergame", en: "Advergame" } },
     { id: "jam", label: { "pt-BR": "Game Jam", en: "Game Jam" } },
     { id: "indie", label: { "pt-BR": "Independente", en: "Indie" } },
   ],
@@ -134,6 +135,50 @@ const PORTFOLIO = {
       links: [
         { label: { "pt-BR": "Página na Steam", en: "Steam page" }, url: "https://store.steampowered.com/app/4245280/" },
       ],
+    },
+    {
+      "title": "Coliseum Burger",
+      "category": "advergame",
+      "image": "assets/projects/coliseum-burger.png",
+      "status": {
+        "pt-BR": "Lançado",
+        "en": "Released"
+      },
+      "studio": "Mikan Studio",
+      "role": {
+        "pt-BR": "Engenheiro de Software",
+        "en": "Software Engineer"
+      },
+      "tags": [
+        "Unity",
+        "C#",
+        "WebGL",
+        "State Machine",
+        "OOP",
+        "Spine",
+        "FMOD",
+        "Git",
+        "SOLID",
+        "Design Patterns",
+        "Event-Driven Architecture",
+        {
+          "pt-BR": "Inteligência Artificial",
+          "en": "Artificial Intelligence"
+        },
+        {
+          "pt-BR": "Sistemas de UI",
+          "en": "UI Systems"
+        }
+      ],
+      "links": [
+        {
+          "label": {
+            "pt-BR": "Jogar no navegador",
+            "en": "Play in browser"
+          },
+          "url": "https://coliseumburger.itch.io/coliseum"
+        }
+      ]
     },
     {
       title: "Excommunicated",
