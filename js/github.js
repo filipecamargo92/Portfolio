@@ -52,7 +52,10 @@ const GitHubActivity = (() => {
         if (month !== lastMonth) {
           const label = h('span', {}, monthFormat.format(date));
           label.style.gridColumn = String(column);
-          months.append(label);
+          // Partial weeks at the edges can put two month names on top of each other.
+          label.style.gridRow = '1';
+          const columns = Math.ceil((days.length + offset) / 7);
+          if (!(index === 0 && date.getUTCDate() > 14) && column <= columns - 2) months.append(label);
           lastMonth = month;
         }
         grid.append(h('span', {
