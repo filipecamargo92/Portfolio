@@ -1144,3 +1144,21 @@ button { font:inherit; }
 .contact-info .socials > li { min-width:0; max-width:100%; }
 .contact-info .socials > li:has(.is-code-unit) { flex-basis:100%; }
 .contact-info .socials a.is-code-unit { height:auto; min-height:0; max-width:100%; overflow-wrap:anywhere; white-space:pre-wrap; }
+
+/* Align the contribution calendar with the greeting in the About introduction. */
+#panel-about .hero__content { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); column-gap:32px; align-items:start; }
+#panel-about .hero__eyebrow { grid-column:1; grid-row:1; }
+#panel-about .hero__name { grid-column:1; grid-row:2; }
+#panel-about .hero__role { grid-column:1; grid-row:3; }
+#panel-about .hero__summary { grid-column:1 / -1; }
+#panel-about .github-activity { grid-column:2; grid-row:1 / 4; margin:0; width:100%; min-width:0; padding:16px; background:#232323; }
+#panel-about .github-header { flex-wrap:nowrap; }
+#panel-about .github-header h3 { order:0; font-size:14px; }
+#panel-about .github-refresh { order:1; margin-left:auto; flex-shrink:0; }
+#panel-about .github-legend { margin-bottom:0; }
+#panel-about .github-calendar-scroll { max-width:100%; }
+.contact-layout { grid-template-columns:minmax(0,1fr); max-width:700px; }
+@media(max-width:1200px) {
+  #panel-about .hero__content { grid-template-columns:minmax(0,1fr); }
+  #panel-about .github-activity { grid-column:1; grid-row:5; margin-top:20px; width:fit-content; max-width:100%; }
+}

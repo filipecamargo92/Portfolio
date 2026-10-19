@@ -277,7 +277,7 @@ async function selectView(id, restart = false, fromEmpty = false) {
   const buffer = $('#typing-buffer');
   const previous = fromEmpty ? '' : (buffer.hidden ? $('#panel-' + activeView).innerText : buffer.textContent);
   activeView = id;
-  if (id === "contact") GitHubActivity.refresh();
+  if (id === "about") GitHubActivity.refresh();
   settleView();
   history.replaceState(null, '', '#' + id);
   $('#editor-scroll').scrollTop = 0;

@@ -1,7 +1,22 @@
 ﻿/* Public contribution calendar. No credentials are shipped to the browser. */
 const GitHubActivity = (() => {
   const interval = 5 * 60 * 1000;
+  const cacheKey = 'portfolio-github-calendar-' + PORTFOLIO.profile.github;
   let days = null;
+  function normalize(data) {
+    if (!Array.isArray(data.contributions) || !data.contributions.length) throw new Error('Empty calendar');
+    const result = data.contributions.flat().map(day => ({
+      date: day?.date, count: day?.count, level: Number(day?.intensity ?? day?.level),
+    }));
+    if (!result.every(day => /^\d{4}-\d{2}-\d{2}$/.test(day.date) &&
+      Number.isFinite(Date.parse(day.date)) && Number.isInteger(day.count) && day.count >= 0 &&
+      Number.isInteger(day.level) && day.level >= 0 && day.level <= 4)) throw new Error('Invalid calendar');
+    return result.sort((a,b) => a.date.localeCompare(b.date));
+  }
+  try {
+    const cached = JSON.parse(localStorage.getItem(cacheKey));
+    if (cached) days = normalize({contributions: cached});
+  } catch { /* Storage may be unavailable or contain an older format. */ }
   let lastAttempt = 0;
   let pending = false;
   let failed = false;
@@ -61,38 +76,41 @@ const GitHubActivity = (() => {
     pending = true;
     lastAttempt = Date.now();
     render();
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    const username = encodeURIComponent(PORTFOLIO.profile.github);
+    const sources = [
+      'https://gh-calendar.rschristian.dev/user/' + username,
+      'https://github-contributions-api.jogruber.de/v4/' + username + '?y=last',
+    ];
     try {
-      const username = encodeURIComponent(PORTFOLIO.profile.github);
-      const response = await fetch(`https://gh-calendar.rschristian.dev/user/${username}`,
-        {signal: controller.signal, credentials: 'omit'});
-      if (!response.ok) throw new Error('Calendar request failed');
-      const data = await response.json();
-      if (!Array.isArray(data.contributions) || !data.contributions.length) throw new Error('Empty calendar');
-      // This endpoint returns weeks and intensity strings; normalize before rendering.
-      const contributions = data.contributions.flat().map(day => ({
-        date: day?.date, count: day?.count, level: Number(day?.intensity),
-      }));
-      const valid = contributions.length > 0 && contributions.every(day => /^\d{4}-\d{2}-\d{2}$/.test(day.date) &&
-        Number.isFinite(Date.parse(day.date)) && Number.isInteger(day.count) && day.count >= 0 &&
-        Number.isInteger(day.level) && day.level >= 0 && day.level <= 4);
-      if (!valid) throw new Error('Invalid calendar');
-      const sum = contributions.reduce((total, day) => total + day.count, 0);
-      if (!Number.isInteger(data.total) || data.total !== sum) throw new Error('Inconsistent calendar total');
-      days = contributions.sort((a, b) => a.date.localeCompare(b.date));
+      let updated = null;
+      for (const url of sources) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        try {
+          const response = await fetch(url, {signal: controller.signal, credentials: 'omit'});
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          updated = normalize(await response.json());
+          break;
+        } catch (error) {
+          console.warn('GitHub calendar source unavailable:', url, error);
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+      if (!updated) throw new Error('All calendar sources unavailable');
+      days = updated;
       failed = false;
+      try { localStorage.setItem(cacheKey, JSON.stringify(days)); } catch { /* Optional cache. */ }
     } catch {
       failed = true;
     } finally {
-      clearTimeout(timeout);
       pending = false;
       render();
     }
   }
 
   function refreshWhenVisible() {
-    if (document.visibilityState === 'visible' && activeView === 'contact') refresh();
+    if (document.visibilityState === 'visible' && activeView === 'about') refresh();
   }
 
   function init() {
