@@ -40,7 +40,7 @@ const GitHubActivity = (() => {
       const months = h('div', {class: 'github-months', 'aria-hidden': 'true'});
       const first = new Date(days[0].date + 'T00:00:00Z');
       const offset = first.getUTCDay();
-      months.style.gridTemplateColumns = `repeat(${Math.ceil((days.length + offset) / 7)},10px)`;
+      months.style.gridTemplateColumns = `repeat(${Math.ceil((days.length + offset) / 7)},${host.closest('#panel-about') ? 4 : 10}px)`;
       for (let i = 0; i < offset; i++) grid.append(h('span', {class: 'github-cell is-blank'}));
       let lastMonth = '';
       const monthFormat = new Intl.DateTimeFormat(I18n.lang, {month: 'short', timeZone: 'UTC'});
@@ -76,6 +76,16 @@ const GitHubActivity = (() => {
     pending = true;
     lastAttempt = Date.now();
     render();
+    // Same-origin snapshot keeps the calendar usable when external requests are blocked.
+    if (!days) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 4000);
+      try {
+        const response = await fetch('assets/data/github-contributions.json', {signal: controller.signal, cache: 'no-cache'});
+        if (response.ok) { days = normalize(await response.json()); render(); }
+      } catch (error) { console.warn('Local contribution calendar unavailable:', error); }
+      finally { clearTimeout(timeout); }
+    }
     const username = encodeURIComponent(PORTFOLIO.profile.github);
     const sources = [
       'https://gh-calendar.rschristian.dev/user/' + username,
@@ -102,7 +112,7 @@ const GitHubActivity = (() => {
       failed = false;
       try { localStorage.setItem(cacheKey, JSON.stringify(days)); } catch { /* Optional cache. */ }
     } catch {
-      failed = true;
+      failed = !days;
     } finally {
       pending = false;
       render();
