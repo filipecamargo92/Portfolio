@@ -40,7 +40,7 @@ const GitHubActivity = (() => {
       const months = h('div', {class: 'github-months', 'aria-hidden': 'true'});
       const first = new Date(days[0].date + 'T00:00:00Z');
       const offset = first.getUTCDay();
-      months.style.gridTemplateColumns = `repeat(${Math.ceil((days.length + offset) / 7)},${host.closest('#panel-about') ? 4 : 10}px)`;
+      months.style.gridTemplateColumns = `repeat(${Math.ceil((days.length + offset) / 7)},${parseInt(getComputedStyle(host).getPropertyValue('--calendar-cell'), 10) || 10}px)`;
       for (let i = 0; i < offset; i++) grid.append(h('span', {class: 'github-cell is-blank'}));
       let lastMonth = '';
       const monthFormat = new Intl.DateTimeFormat(I18n.lang, {month: 'short', timeZone: 'UTC'});

@@ -12,7 +12,7 @@ const PORTFOLIO = {
 
   stats: [
     { value: "3+", label: { "pt-BR": "Anos de experiência", en: "Years of experience" } },
-    { value: "7", label: { "pt-BR": "Jogos no portfólio", en: "Games in the portfolio" } },
+    { value: "7", label: { "pt-BR": "Projetos no portfólio", en: "Projects in the portfolio" } },
     { value: "3", label: { "pt-BR": "Plataformas (PC, Android e WebGL)", en: "Platforms (PC, Android and WebGL)" } },
   ],
 
