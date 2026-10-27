@@ -1,7 +1,8 @@
 ﻿name: Update GitHub contributions
 on:
   schedule:
-    - cron: '17 */6 * * *'
+    # 06:00 in Sao Paulo (UTC-3); GitHub schedules use UTC.
+    - cron: '0 9 * * *'
   workflow_dispatch:
 permissions:
   contents: write
